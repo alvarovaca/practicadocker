@@ -1,0 +1,28 @@
+version: '3.1'
+
+services:
+
+  bookmedik:
+    container_name: servidor-bookmedik
+    image: alvarovaca/bookmedik:v2
+    restart: always
+    environment:
+      MYSQL_DATABASE: bookmedik
+      MYSQL_USER: user_bookmedik
+      MYSQL_PASSWORD: pass_bookmedik
+    ports:
+      - 8081:80
+    volumes:
+      - /home/alvaro/logdir:/var/log/apache2
+
+  dbbookmedik:
+    container_name: mariadb-bookmedik
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_DATABASE: bookmedik
+      MYSQL_USER: user_bookmedik
+      MYSQL_PASSWORD: pass_bookmedik
+      MYSQL_ROOT_PASSWORD: my-secret-pw
+    volumes:
+      - /home/alvaro/datadir:/var/lib/mysql

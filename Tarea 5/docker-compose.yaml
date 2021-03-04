@@ -1,0 +1,29 @@
+version: '3.1'
+
+services:
+
+  joomla:
+    container_name: servidor-joomla
+    image: joomla
+    restart: always
+    environment:
+      JOOMLA_DB_HOST: mariadb-joomla
+      JOOMLA_DB_USER: user_joomla
+      JOOMLA_DB_PASSWORD: pass_joomla
+      JOOMLA_DB_NAME: joomla
+    ports:
+      - 8081:80
+    volumes:
+      - /home/alvaro/datadir:/var/www/html
+
+  dbjoomla:
+    container_name: mariadb-joomla
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_DATABASE: joomla
+      MYSQL_USER: user_joomla
+      MYSQL_PASSWORD: pass_joomla
+      MYSQL_ROOT_PASSWORD: my-secret-pw
+    volumes:
+      - /home/alvaro/datadir2:/var/lib/mysql

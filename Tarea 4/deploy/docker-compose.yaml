@@ -1,0 +1,24 @@
+version: '3.1'
+
+services:
+
+  prestashop:
+    container_name: servidor-prestashop
+    image: alvarovaca/prestashop:v1
+    restart: always
+    ports:
+      - 8081:80
+    volumes:
+      - /home/alvaro/datadir:/var/www/html
+
+  dbprestashop:
+    container_name: mariadb-prestashop
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_DATABASE: prestashop
+      MYSQL_USER: user_prestashop
+      MYSQL_PASSWORD: pass_prestashop
+      MYSQL_ROOT_PASSWORD: my-secret-pw
+    volumes:
+      - /home/alvaro/datadir2:/var/lib/mysql
